@@ -15,6 +15,7 @@ namespace Game.Windows
     {
         DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Render);
         DispatcherTimer moveTimer = new DispatcherTimer(DispatcherPriority.Render);
+        Random random= new Random();
         IPlant ChoosedPlant { get; set; }
         public GameWindow()
         {
@@ -34,6 +35,11 @@ namespace Game.Windows
                     item.Plant?.Action(gameCanvas);
 
                 }
+                ZombieBody zombie = new ZombieBody();
+                zombie.X = gameCanvas.Width+zombie.Body.Width;
+                zombie.Y = random.Next(4)*100;
+                zombie.Parent = gameCanvas;
+                gameCanvas.Children.Add(zombie);
             };
             gameTimer.Start();
 
