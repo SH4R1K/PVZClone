@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\BasicZombie.png" />
+    <None Remove="Assets\Images\Peashooter.png" />
+    <None Remove="Assets\Images\Sunflower.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\BasicZombie.png" />
+    <Resource Include="Assets\Images\Peashooter.png" />
+    <Resource Include="Assets\Images\Sunflower.png" />
+  </ItemGroup>
+
+</Project>
