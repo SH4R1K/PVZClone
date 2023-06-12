@@ -8,7 +8,8 @@ namespace Game.ObjectsBase.Zombies
 {
     public class BasicZombie : IZombie
     {
-        private int _health;
+        private int _health = 100;
+        private int _damage = 5;
         public int Health
         {
             get => _health;
@@ -27,6 +28,12 @@ namespace Game.ObjectsBase.Zombies
 
         public ImageSource Image => new BitmapImage(new Uri(@"pack://application:,,,/Game;component\Assets\Images\BasicZombie.png", UriKind.RelativeOrAbsolute));
 
+        public int Damage { get => _damage; set => _damage = value; }
+
+        public void Attack(PlantCell plantCell)
+        {
+            plantCell.Plant.Health -= Damage;
+        }
 
         public void Move(UIElement zombieBody)
         {

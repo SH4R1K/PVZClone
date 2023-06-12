@@ -7,7 +7,7 @@ namespace Game.ObjectsBase.Plants
 {
     public class SunflowerPlant : IPlant
     {
-        private int _health;
+        private int _health = 100;
         public int Price => 50;
         public ImageSource Image => new BitmapImage(new Uri(@"\Assets\Images\Sunflower.png", UriKind.RelativeOrAbsolute));
 
@@ -19,7 +19,7 @@ namespace Game.ObjectsBase.Plants
                 _health = value;
                 if (_health <= 0)
                 {
-                    PlantCell.Parent.Children.Remove(PlantCell);
+                    PlantCell.RemovePlant();
                 }
             }
         }

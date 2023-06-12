@@ -16,7 +16,9 @@ namespace Game.ObjectsBase.Zombies
         public ZombieBody ZombieBody { get; set; }
         public double X { get => Canvas.GetLeft(ZombieBody); set => Canvas.SetLeft(ZombieBody, value); }
         public double Y { get => Canvas.GetTop(ZombieBody); set => Canvas.SetTop(ZombieBody, value); }
+        public int Damage { get; set; }
 
+        public void Attack(PlantCell plantCell);
         public void Move(UIElement zombieBody);
     }
 }
