@@ -7,12 +7,13 @@
         xmlns:objects="clr-namespace:Game.ObjectsBase"
         mc:Ignorable="d"
         Title="GameWindow" Height="450" Width="800">
-    <DockPanel>
-        <StackPanel x:Name="plantChoosePanel" Width="75">
-
-        </StackPanel>
-        <Viewbox>
+    <Viewbox>
+        <DockPanel>
+            <StackPanel x:Name="plantChoosePanel">
+                <TextBlock x:Name="livesTextBlock" Text="Жизни: 3"/>
+                <TextBlock x:Name="sunTextBlock" Text="Солнышки: 100"/>
+            </StackPanel>
             <Canvas x:Name="gameCanvas" Background="DarkOliveGreen" Width="800" Height="450"/>
-        </Viewbox>
-    </DockPanel>
+        </DockPanel>
+    </Viewbox>
 </Window>

@@ -17,6 +17,8 @@ namespace Game.Windows
         DispatcherTimer moveTimer = new DispatcherTimer(DispatcherPriority.Render);
         Random random = new Random();
         IPlant ChoosedPlant { get; set; }
+        public int SunAmount { get; set; } = 100;
+        public int Health { get; set; } = 3;
         public GameWindow()
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace Game.Windows
                 }
                 ZombieBody zombie = new ZombieBody();
                 zombie.X = gameCanvas.Width + zombie.Body.Width;
-                zombie.Y = random.Next(4) * 100;
+                zombie.Y = random.Next(4) * 105;
                 zombie.Parent = gameCanvas;
                 gameCanvas.Children.Add(zombie);
             };
@@ -94,8 +96,8 @@ namespace Game.Windows
                 for (int j = 0; j < columnAmount; j++)
                 {
                     PlantCell plantCell = new PlantCell();
-                    plantCell.X = j * 75;
-                    plantCell.Y = i * 100;
+                    plantCell.X = j * 80;
+                    plantCell.Y = i * 105;
                     plantCell.Parent = gameCanvas;
                     plantCell.Click += (s, e) =>
                     {
