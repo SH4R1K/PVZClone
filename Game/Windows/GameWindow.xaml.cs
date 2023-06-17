@@ -17,8 +17,6 @@ namespace Game.Windows
         DispatcherTimer moveTimer = new DispatcherTimer(DispatcherPriority.Render);
         Random random = new Random();
         IPlant ChoosedPlant { get; set; }
-        public int SunAmount { get; set; } = 100;
-        public int Health { get; set; } = 3;
         public GameWindow()
         {
             InitializeComponent();
@@ -26,6 +24,17 @@ namespace Game.Windows
             PlantCell[] gameCanvasChildren = gameCanvas.Children.OfType<PlantCell>().ToArray();
             ZombieBody[] zombieBodies = gameCanvas.Children.OfType<ZombieBody>().ToArray();
             Shell[] shells = gameCanvas.Children.OfType<Shell>().ToArray();
+
+            // Кнопочки пока что так создаем, потом че нить придумаю
+            Button peaShooterButton = new Button();
+            peaShooterButton.Content = "Горохострел";
+            peaShooterButton.Click += (s, e) => ChoosedPlant = new PeashooterPlant();
+            plantChoosePanel.Children.Add(peaShooterButton);
+            Button sunflowerButton = new Button();
+            sunflowerButton.Content = "Подсолнух";
+            sunflowerButton.Click += (s, e) => ChoosedPlant = new SunflowerPlant();
+            plantChoosePanel.Children.Add(sunflowerButton);
+            //
             bool isAttack = false;
 
             gameTimer.Interval = TimeSpan.FromSeconds(1);
@@ -83,6 +92,10 @@ namespace Game.Windows
                         }
                     }
                 }
+                livesTextBlock.Text = $"Жизни: {GameData.Lives}";
+                sunTextBlock.Text = $"Солнышки: {GameData.Sun}";
+               // peaShooterButton.IsEnabled = PeashooterPlant.Price <= GameData.Sun;
+               // sunflowerButton.IsEnabled = SunflowerPlant.Price <= GameData.Sun;
             };
             moveTimer.Start();
         }
@@ -107,14 +120,6 @@ namespace Game.Windows
                     gameCanvas.Children.Add(plantCell);
                 }
             }
-            Button peaShooterButton = new Button();
-            peaShooterButton.Content = "Горохострел";
-            peaShooterButton.Click += (s, e) => ChoosedPlant = new PeashooterPlant();
-            plantChoosePanel.Children.Add(peaShooterButton);
-            Button sunflowerButton = new Button();
-            sunflowerButton.Content = "Подсолнух";
-            sunflowerButton.Click += (s, e) => ChoosedPlant = new SunflowerPlant();
-            plantChoosePanel.Children.Add(sunflowerButton);
         }
 
 

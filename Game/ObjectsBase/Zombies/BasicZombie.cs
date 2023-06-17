@@ -44,9 +44,12 @@ namespace Game.ObjectsBase.Zombies
 
         public void Move(UIElement zombieBody)
         {
-            X -= 1;
+            X -= 2;
             if (X < 0)
-                X = 800;
+            {
+                GameData.Lives--;
+                Health = 0;
+            }
         }
     }
 }
