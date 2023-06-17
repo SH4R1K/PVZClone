@@ -32,9 +32,6 @@ namespace Game.ObjectsBase
         {
             InitializeComponent();
             bullet.Fill = new SolidColorBrush(Colors.Red);
-            XSpeed= 2;
-            Damage= 0;
-            Radius = 5;
         }
         
         public void Move(UIElement shell)

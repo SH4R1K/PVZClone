@@ -15,6 +15,7 @@ namespace Game.Windows
     {
         DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Render);
         DispatcherTimer moveTimer = new DispatcherTimer(DispatcherPriority.Render);
+        Random random = new Random();
         IPlant ChoosedPlant { get; set; }
         public GameWindow()
         {
@@ -23,6 +24,18 @@ namespace Game.Windows
             PlantCell[] gameCanvasChildren = gameCanvas.Children.OfType<PlantCell>().ToArray();
             ZombieBody[] zombieBodies = gameCanvas.Children.OfType<ZombieBody>().ToArray();
             Shell[] shells = gameCanvas.Children.OfType<Shell>().ToArray();
+
+            // Кнопочки пока что так создаем, потом че нить придумаю
+            Button peaShooterButton = new Button();
+            peaShooterButton.Content = "Горохострел";
+            peaShooterButton.Click += (s, e) => ChoosedPlant = new PeashooterPlant();
+            plantChoosePanel.Children.Add(peaShooterButton);
+            Button sunflowerButton = new Button();
+            sunflowerButton.Content = "Подсолнух";
+            sunflowerButton.Click += (s, e) => ChoosedPlant = new SunflowerPlant();
+            plantChoosePanel.Children.Add(sunflowerButton);
+            //
+            bool isAttack = false;
 
             gameTimer.Interval = TimeSpan.FromSeconds(1);
             gameTimer.Tick += (s, e) =>
@@ -34,19 +47,36 @@ namespace Game.Windows
                     item.Plant?.Action(gameCanvas);
 
                 }
+                ZombieBody zombie = new ZombieBody();
+                zombie.X = gameCanvas.Width + zombie.Body.Width;
+                zombie.Y = random.Next(4) * 105;
+                zombie.Parent = gameCanvas;
+                gameCanvas.Children.Add(zombie);
             };
             gameTimer.Start();
 
             moveTimer.Interval = TimeSpan.FromMilliseconds(25);
             moveTimer.Tick += (s, e) =>
             {
+                gameCanvasChildren = gameCanvas.Children.OfType<PlantCell>().ToArray();
                 zombieBodies = gameCanvas.Children.OfType<ZombieBody>().ToArray();
+                shells = gameCanvas.Children.OfType<Shell>().ToArray();
                 for (int i = 0; i < zombieBodies.Length; i++)
                 {
-                    var item = zombieBodies[i];
-                    item.Zombie?.Move(item);
+                    var zombieBody = zombieBodies[i];
+                    for (int j = 0; j < gameCanvasChildren.Length; j++)
+                    {
+                        isAttack = false;
+                        if (CheckCollision(zombieBody, gameCanvasChildren[j])) // Проверяем на столкновение цветок и зомби
+                        {
+                            isAttack = true;
+                            zombieBody.Zombie?.Attack(gameCanvasChildren[j]);
+                            break;
+                        }
+                    }
+                    if (!isAttack) // Если зомби не атакует, то идет
+                        zombieBody.Zombie?.Move(zombieBody);
                 }
-                shells = gameCanvas.Children.OfType<Shell>().ToArray();
                 for (int i = 0; i < shells.Length; i++)
                 {
                     var item = shells[i];
@@ -62,6 +92,10 @@ namespace Game.Windows
                         }
                     }
                 }
+                livesTextBlock.Text = $"Жизни: {GameData.Lives}";
+                sunTextBlock.Text = $"Солнышки: {GameData.Sun}";
+               // peaShooterButton.IsEnabled = PeashooterPlant.Price <= GameData.Sun;
+               // sunflowerButton.IsEnabled = SunflowerPlant.Price <= GameData.Sun;
             };
             moveTimer.Start();
         }
@@ -70,17 +104,13 @@ namespace Game.Windows
         {
             int rowAmount = 4;
             int columnAmount = 8;
-            ZombieBody zombie = new ZombieBody();
-            zombie.X = 700;
-            zombie.Y = 200;
-            zombie.Parent = gameCanvas;
             for (int i = 0; i < rowAmount; i++)
             {
                 for (int j = 0; j < columnAmount; j++)
                 {
                     PlantCell plantCell = new PlantCell();
-                    plantCell.X = j * 75;
-                    plantCell.Y = i * 100;
+                    plantCell.X = j * 80;
+                    plantCell.Y = i * 105;
                     plantCell.Parent = gameCanvas;
                     plantCell.Click += (s, e) =>
                     {
@@ -90,19 +120,16 @@ namespace Game.Windows
                     gameCanvas.Children.Add(plantCell);
                 }
             }
-            gameCanvas.Children.Add(zombie);
-
-            Button peaShooterButton = new Button();
-            peaShooterButton.Content = "Горохострел";
-            peaShooterButton.Click += (s, e) => ChoosedPlant = new PeashooterPlant();
-            plantChoosePanel.Children.Add(peaShooterButton);
-            Button sunflowerButton = new Button();
-            sunflowerButton.Content = "Подсолнух";
-            sunflowerButton.Click += (s, e) => ChoosedPlant = new SunflowerPlant();
-            plantChoosePanel.Children.Add(sunflowerButton);
         }
 
-        public bool CheckCollision(Shell object1, ZombieBody object2)
+
+        private bool CheckCollision(ZombieBody object1, PlantCell object2)
+        {
+            Rect rect1 = new Rect(object1.X, object1.Y, object1.Body.Width, object1.Body.Height);
+            Rect rect2 = new Rect(object2.X, object2.Y, object2.Body.Width, object2.Body.Height);
+            return object2.Plant != null && rect1.IntersectsWith(rect2);
+        }
+        private bool CheckCollision(Shell object1, ZombieBody object2)
         {
             Rect rect1 = new Rect(object1.X, object1.Y, object1.Body.Width, object1.Body.Height);
             Rect rect2 = new Rect(object2.X, object2.Y, object2.Body.Width, object2.Body.Height);

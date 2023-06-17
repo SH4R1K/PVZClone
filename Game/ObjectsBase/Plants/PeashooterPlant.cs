@@ -7,7 +7,7 @@ namespace Game.ObjectsBase.Plants
 {
     public class PeashooterPlant : IPlant
     {
-        private int _health;
+        private int _health = 100;
         public int Price => 100;
         public int Health
         {
@@ -17,7 +17,7 @@ namespace Game.ObjectsBase.Plants
                 _health = value;
                 if (_health <= 0)
                 {
-                    PlantCell.Parent.Children.Remove(PlantCell);
+                    PlantCell.RemovePlant();
                 }
             }
         }

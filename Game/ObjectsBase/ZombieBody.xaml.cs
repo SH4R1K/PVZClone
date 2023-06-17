@@ -30,7 +30,6 @@ namespace Game.ObjectsBase
         {
             InitializeComponent();
             Zombie.ZombieBody = this;
-            Zombie.Health = 100;
             zombie.Fill = new ImageBrush(Zombie.Image);
         }
     }
