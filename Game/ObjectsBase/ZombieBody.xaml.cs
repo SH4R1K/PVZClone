@@ -21,7 +21,7 @@ namespace Game.ObjectsBase
     /// </summary>
     public partial class ZombieBody : UserControl
     {
-        public IZombie Zombie = new BasicZombie();
+        public ZombieBase Zombie;
         public double X { get => Canvas.GetLeft(this); set => Canvas.SetLeft(this, value); }
         public double Y { get => Canvas.GetTop(this); set => Canvas.SetTop(this, value); }
         public Canvas Parent { get; set; }
@@ -29,6 +29,7 @@ namespace Game.ObjectsBase
         public ZombieBody()
         {
             InitializeComponent();
+            Zombie = new BasicZombie();
             Zombie.ZombieBody = this;
             zombie.Fill = new ImageBrush(Zombie.Image);
         }
