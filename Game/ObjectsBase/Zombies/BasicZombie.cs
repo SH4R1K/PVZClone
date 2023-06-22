@@ -36,5 +36,10 @@ namespace Game.ObjectsBase.Zombies
                 Health = 0;
             }
         }
+
+        public static BasicZombie CreateSelf()
+        {
+            return new BasicZombie();
+        }
     }
 }

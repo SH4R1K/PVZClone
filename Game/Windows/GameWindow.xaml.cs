@@ -19,6 +19,7 @@ namespace Game.Windows
         PlantBase ChoosedPlant { get; set; }
         PeashooterPlant peashooter = new PeashooterPlant();
         SunflowerPlant sunflower = new SunflowerPlant();
+        WallnutPlant wallnutPlant = new WallnutPlant();
         public GameWindow()
         {
             InitializeComponent();
@@ -36,8 +37,12 @@ namespace Game.Windows
             sunflowerButton.Content = "Подсолнух";
             sunflowerButton.Click += (s, e) => ChoosedPlant = new SunflowerPlant();
             plantChoosePanel.Children.Add(sunflowerButton);
+            Button wallNutButton = new Button();
+            wallNutButton.Content = "Орех";
+            wallNutButton.Click += (s, e) => ChoosedPlant = new WallnutPlant();
+            plantChoosePanel.Children.Add(wallNutButton);
             //
-            
+
             bool isAttack = false;
 
             gameTimer.Interval = TimeSpan.FromSeconds(1);
@@ -99,6 +104,7 @@ namespace Game.Windows
                 sunTextBlock.Text = $"Солнышки: {GameData.Sun}";
                peaShooterButton.IsEnabled = peashooter.Price <= GameData.Sun;
                sunflowerButton.IsEnabled = sunflower.Price <= GameData.Sun;
+               wallNutButton.IsEnabled = wallnutPlant.Price <= GameData.Sun;
             };
             moveTimer.Start();
         }

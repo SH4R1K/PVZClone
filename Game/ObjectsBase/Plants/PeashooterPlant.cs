@@ -21,8 +21,9 @@ namespace Game.ObjectsBase.Plants
         {
             Shell shell = new Shell();
             shell.Damage = Damage;
-            shell.Radius = 5;
+            shell.Radius = 10;
             shell.XSpeed = 5;
+            shell.Body.Fill = new SolidColorBrush(Colors.SpringGreen);
             shell.Parent = PlantCell.Parent;
             shell.X = X + 60;
             shell.Y = Y + 35;
