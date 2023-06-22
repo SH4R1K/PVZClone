@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Game.Windows"
         xmlns:objects="clr-namespace:Game.ObjectsBase"
         mc:Ignorable="d"
-        Title="GameWindow" Height="450" Width="800">
+        Title="GameWindow" Height="450" Width="800" Closed="Window_Closed">
     <Viewbox>
         <DockPanel>
             <StackPanel x:Name="plantChoosePanel">

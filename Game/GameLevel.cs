@@ -13,13 +13,14 @@ namespace Game
         public string Name { get; set; }
         public ImageSource Background { get; set; }
 
-        public Dictionary<string, int> Zombies { get; set; } = new Dictionary<string, int>();
-
-        public GameLevel(string name, ImageSource background, Dictionary<string, int> zombies)
+        public Dictionary<ZombieType, int> Zombies { get; set; }
+        public List<ZombieType> ZombieTypes { get; set; }
+        public GameLevel(string name, ImageSource background, Dictionary<ZombieType, int> zombies, List<ZombieType> zombieTypes)
         {
             Name = name;
             Background = background;
             Zombies = zombies;
+            ZombieTypes = zombieTypes;
         }
 
     }

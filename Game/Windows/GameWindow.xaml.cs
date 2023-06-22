@@ -1,9 +1,11 @@
 ﻿using Game.ObjectsBase;
 using Game.ObjectsBase.Plants;
+using Game.ObjectsBase.Zombies;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Game.Windows
@@ -20,10 +22,12 @@ namespace Game.Windows
         PeashooterPlant peashooter = new PeashooterPlant();
         SunflowerPlant sunflower = new SunflowerPlant();
         WallnutPlant wallnutPlant = new WallnutPlant();
-        public GameWindow()
+        public GameWindow(GameLevel gameLevel)
         {
             InitializeComponent();
             CreateObjects();
+            Title = gameLevel.Name;
+            gameCanvas.Background = new ImageBrush(gameLevel.Background);
             PlantCell[] gameCanvasChildren = gameCanvas.Children.OfType<PlantCell>().ToArray();
             ZombieBody[] zombieBodies = gameCanvas.Children.OfType<ZombieBody>().ToArray();
             Shell[] shells = gameCanvas.Children.OfType<Shell>().ToArray();
@@ -55,7 +59,7 @@ namespace Game.Windows
                     item.Plant?.Action();
 
                 }
-                ZombieBody zombie = new ZombieBody();
+                ZombieBody zombie = new ZombieBody(gameLevel.ZombieTypes[0]);
                 zombie.X = gameCanvas.Width + zombie.Body.Width;
                 zombie.Y = random.Next(4) * 105;
                 zombie.Parent = gameCanvas;
@@ -102,9 +106,9 @@ namespace Game.Windows
                 }
                 livesTextBlock.Text = $"Жизни: {GameData.Lives}";
                 sunTextBlock.Text = $"Солнышки: {GameData.Sun}";
-               peaShooterButton.IsEnabled = peashooter.Price <= GameData.Sun;
-               sunflowerButton.IsEnabled = sunflower.Price <= GameData.Sun;
-               wallNutButton.IsEnabled = wallnutPlant.Price <= GameData.Sun;
+                peaShooterButton.IsEnabled = peashooter.Price <= GameData.Sun;
+                sunflowerButton.IsEnabled = sunflower.Price <= GameData.Sun;
+                wallNutButton.IsEnabled = wallnutPlant.Price <= GameData.Sun;
             };
             moveTimer.Start();
         }
@@ -143,6 +147,13 @@ namespace Game.Windows
             Rect rect1 = new Rect(object1.X, object1.Y, object1.Body.Width, object1.Body.Height);
             Rect rect2 = new Rect(object2.X, object2.Y, object2.Body.Width, object2.Body.Height);
             return rect1.IntersectsWith(rect2);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            gameTimer.Stop();
+            moveTimer.Stop();
+            
         }
     }
 }

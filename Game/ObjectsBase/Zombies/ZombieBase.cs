@@ -28,6 +28,7 @@ namespace Game.ObjectsBase.Zombies
                 if (_health <= 0)
                 {
                     ZombieBody.Parent.Children.Remove(ZombieBody);
+                    ZombieBody = null; // Возможно выгружает из памяти
                 }
             }
         }

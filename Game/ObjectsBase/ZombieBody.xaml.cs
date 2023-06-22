@@ -33,5 +33,13 @@ namespace Game.ObjectsBase
             Zombie.ZombieBody = this;
             zombie.Fill = new ImageBrush(Zombie.Image);
         }
+
+        public ZombieBody(ZombieType zombieType)
+        {
+            InitializeComponent();
+            Zombie = ZombieFactory.CreateZombie(zombieType);
+            Zombie.ZombieBody = this;
+            zombie.Fill = new ImageBrush(Zombie.Image);
+        }
     }
 }

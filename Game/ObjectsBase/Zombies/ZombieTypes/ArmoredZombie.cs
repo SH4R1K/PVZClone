@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Game.ObjectsBase.Zombies
 {
-    public class BasicZombie : ZombieBase
+    public class ArmoredZombie : ZombieBase
     {
         private float _attackCooldown = 1;
         private DateTime _nextAttackTime;
-        public override ImageSource Image => new BitmapImage(new Uri(@"pack://application:,,,/Game;component\Assets\Images\BasicZombie.png", UriKind.RelativeOrAbsolute));
+        public override ImageSource Image => new BitmapImage(new Uri(@"pack://application:,,,/Game;component\Assets\Images\ArmoredZombie.png", UriKind.RelativeOrAbsolute));
 
-        public BasicZombie()
+        public ArmoredZombie()
         {
             Damage = 5;
-            Health = 100;
+            Health = 1000;
         }
 
         public override void Attack(PlantCell plantCell)
@@ -35,11 +37,6 @@ namespace Game.ObjectsBase.Zombies
                 GameData.Lives--;
                 Health = 0;
             }
-        }
-
-        public static BasicZombie CreateSelf()
-        {
-            return new BasicZombie();
         }
     }
 }
