@@ -34,11 +34,11 @@ namespace Game.ObjectsBase
             bullet.Fill = new SolidColorBrush(Colors.Red);
         }
         
-        public void Move(UIElement shell)
+        public void Move()
         {
             X += XSpeed;
             if (X >= Parent.Width) 
-                Parent.Children.Remove(shell);
+                Parent.Children.Remove(this);
         }
     }
 }

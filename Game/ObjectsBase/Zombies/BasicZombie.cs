@@ -6,34 +6,19 @@ using System.Windows.Media.Imaging;
 
 namespace Game.ObjectsBase.Zombies
 {
-    public class BasicZombie : IZombie
+    public class BasicZombie : ZombieBase
     {
-        private int _health = 100;
-        public int Health
-        {
-            get => _health;
-            set
-            {
-                _health = value;
-                if (_health <= 0)
-                {
-                    ZombieBody.Parent.Children.Remove(ZombieBody);
-                }
-            }
-        }
-
-        public int Damage { get; set; } = 5;
-
         private float _attackCooldown = 1;
         private DateTime _nextAttackTime;
+        public override ImageSource Image => new BitmapImage(new Uri(@"pack://application:,,,/Game;component\Assets\Images\BasicZombie.png", UriKind.RelativeOrAbsolute));
 
-        public ZombieBody ZombieBody { get; set; }
-        public double X { get => ZombieBody.X; set => ZombieBody.X = value; }
-        public double Y { get => ZombieBody.Y; set => ZombieBody.Y = value; }
+        public BasicZombie()
+        {
+            Damage = 5;
+            Health = 100;
+        }
 
-        public ImageSource Image => new BitmapImage(new Uri(@"pack://application:,,,/Game;component\Assets\Images\BasicZombie.png", UriKind.RelativeOrAbsolute));
-
-        public void Attack(PlantCell plantCell)
+        public override void Attack(PlantCell plantCell)
         {
             if (DateTime.Now > _nextAttackTime)
             {
@@ -42,7 +27,7 @@ namespace Game.ObjectsBase.Zombies
             }
         }
 
-        public void Move(UIElement zombieBody)
+        public override void Move()
         {
             X -= 2;
             if (X < 0)
@@ -50,6 +35,11 @@ namespace Game.ObjectsBase.Zombies
                 GameData.Lives--;
                 Health = 0;
             }
+        }
+
+        public static BasicZombie CreateSelf()
+        {
+            return new BasicZombie();
         }
     }
 }

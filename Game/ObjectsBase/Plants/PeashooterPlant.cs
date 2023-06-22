@@ -5,39 +5,29 @@ using System.Windows.Media.Imaging;
 
 namespace Game.ObjectsBase.Plants
 {
-    public class PeashooterPlant : IPlant
+    public class PeashooterPlant : PlantBase
     {
-        private int _health = 100;
-        public int Price => 100;
-        public int Health
+
+        public override int Price { get; set; } = 100;
+        public int Damage { get; set; }
+        public PeashooterPlant()
         {
-            get => _health;
-            set
-            {
-                _health = value;
-                if (_health <= 0)
-                {
-                    PlantCell.RemovePlant();
-                }
-            }
+            Health = 5;
+            Damage = 100;
         }
 
-        public ImageSource Image => new BitmapImage(new Uri(@"\Assets\Images\Peashooter.png", UriKind.RelativeOrAbsolute));
-
-        public PlantCell PlantCell { get; set; }
-        public double X { get => Canvas.GetLeft(PlantCell); set => Canvas.SetLeft(PlantCell, value); }
-        public double Y { get => Canvas.GetTop(PlantCell); set => Canvas.SetTop(PlantCell, value); }
-
-        public void Action(Canvas gameCanvas)
+        public override ImageSource Image => new BitmapImage(new Uri(@"\Assets\Images\Peashooter.png", UriKind.RelativeOrAbsolute));
+        public override void Action()
         {
             Shell shell = new Shell();
-            shell.Damage = 5;
-            shell.Radius = 5;
+            shell.Damage = Damage;
+            shell.Radius = 10;
             shell.XSpeed = 5;
+            shell.Body.Fill = new SolidColorBrush(Colors.SpringGreen);
             shell.Parent = PlantCell.Parent;
             shell.X = X + 60;
             shell.Y = Y + 35;
-            gameCanvas.Children.Add(shell);
+            PlantCell.Parent.Children.Add(shell);
 
         }
     }

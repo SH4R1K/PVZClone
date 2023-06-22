@@ -16,7 +16,10 @@ namespace Game.Windows
         DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Render);
         DispatcherTimer moveTimer = new DispatcherTimer(DispatcherPriority.Render);
         Random random = new Random();
-        IPlant ChoosedPlant { get; set; }
+        PlantBase ChoosedPlant { get; set; }
+        PeashooterPlant peashooter = new PeashooterPlant();
+        SunflowerPlant sunflower = new SunflowerPlant();
+        WallnutPlant wallnutPlant = new WallnutPlant();
         public GameWindow()
         {
             InitializeComponent();
@@ -34,7 +37,12 @@ namespace Game.Windows
             sunflowerButton.Content = "Подсолнух";
             sunflowerButton.Click += (s, e) => ChoosedPlant = new SunflowerPlant();
             plantChoosePanel.Children.Add(sunflowerButton);
+            Button wallNutButton = new Button();
+            wallNutButton.Content = "Орех";
+            wallNutButton.Click += (s, e) => ChoosedPlant = new WallnutPlant();
+            plantChoosePanel.Children.Add(wallNutButton);
             //
+
             bool isAttack = false;
 
             gameTimer.Interval = TimeSpan.FromSeconds(1);
@@ -44,7 +52,7 @@ namespace Game.Windows
                 for (int i = 0; i < gameCanvasChildren.Length; i++)
                 {
                     var item = gameCanvasChildren[i];
-                    item.Plant?.Action(gameCanvas);
+                    item.Plant?.Action();
 
                 }
                 ZombieBody zombie = new ZombieBody();
@@ -75,12 +83,12 @@ namespace Game.Windows
                         }
                     }
                     if (!isAttack) // Если зомби не атакует, то идет
-                        zombieBody.Zombie?.Move(zombieBody);
+                        zombieBody.Zombie?.Move();
                 }
                 for (int i = 0; i < shells.Length; i++)
                 {
                     var item = shells[i];
-                    item.Move(item);
+                    item.Move();
 
                     for (int j = 0; j < zombieBodies.Length; j++)
                     {
@@ -94,8 +102,9 @@ namespace Game.Windows
                 }
                 livesTextBlock.Text = $"Жизни: {GameData.Lives}";
                 sunTextBlock.Text = $"Солнышки: {GameData.Sun}";
-               // peaShooterButton.IsEnabled = PeashooterPlant.Price <= GameData.Sun;
-               // sunflowerButton.IsEnabled = SunflowerPlant.Price <= GameData.Sun;
+               peaShooterButton.IsEnabled = peashooter.Price <= GameData.Sun;
+               sunflowerButton.IsEnabled = sunflower.Price <= GameData.Sun;
+               wallNutButton.IsEnabled = wallnutPlant.Price <= GameData.Sun;
             };
             moveTimer.Start();
         }

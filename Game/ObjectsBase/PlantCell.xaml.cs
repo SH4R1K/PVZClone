@@ -22,7 +22,7 @@ namespace Game.ObjectsBase
     /// </summary>
     public partial class PlantCell : UserControl
     {
-        public IPlant Plant { get; set; }
+        public PlantBase Plant { get; set; }
         public double X { get => Canvas.GetLeft(this); set => Canvas.SetLeft(this, value); }
         public double Y { get => Canvas.GetTop(this); set => Canvas.SetTop(this, value); }
         public Canvas Parent { get; set; }
@@ -35,10 +35,11 @@ namespace Game.ObjectsBase
             DataContext = Plant;
         }
 
-        public void PlacePlant(IPlant newPlant)
+        public void PlacePlant(PlantBase newPlant)
         {
             if (Plant != null || newPlant == null)
                 return;
+            GameData.Sun -= newPlant.Price;
             this.Plant = newPlant; // Назначаем свойству
             newPlant.PlantCell = this; // Задаем родителя
             plantImage.Source = Plant.Image; // Задаем картинку?
