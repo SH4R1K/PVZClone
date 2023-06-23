@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Game.ObjectsBase"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="75">
-    <Rectangle x:Name="zombie" Width="75" Height="100">
+    <Rectangle x:Name="zombie" Width="65" Height="70">
         <Rectangle.Fill>
             <ImageBrush Stretch="UniformToFill"/>
         </Rectangle.Fill>

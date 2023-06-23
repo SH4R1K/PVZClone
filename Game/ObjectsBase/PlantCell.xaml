@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Game.ObjectsBase"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="75">
+             d:DesignHeight="80" d:DesignWidth="55">
     <Canvas>
-        <Rectangle x:Name="plantCell" Width="75" Height="100" Fill="GreenYellow" Stroke="Black" StrokeThickness="2" MouseDown="PlantCell_MouseDown" />
-        <Image x:Name="plantImage" Stretch="Uniform" Width="75" Height="100"/>
+        <Rectangle x:Name="plantCell" Width="65" Height="70" Fill="GreenYellow" Stroke="Black" StrokeThickness="2" MouseDown="PlantCell_MouseDown" />
+        <Image x:Name="plantImage" Stretch="Uniform" MouseDown="PlantCell_MouseDown"/>
     </Canvas>
 </UserControl>
