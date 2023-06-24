@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="55">
     <Canvas>
-        <Rectangle x:Name="plantCell" Width="65" Height="70" Fill="GreenYellow" Stroke="Black" StrokeThickness="2" MouseDown="PlantCell_MouseDown" />
+        <Rectangle x:Name="plantCell" Width="65" Height="70" Fill="#3FADFF2F" StrokeThickness="2" MouseDown="PlantCell_MouseDown" />
         <Image x:Name="plantImage" Stretch="Uniform" MouseDown="PlantCell_MouseDown"/>
     </Canvas>
 </UserControl>

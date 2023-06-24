@@ -12,7 +12,7 @@
             <Canvas.Background>
                 <ImageBrush ImageSource="/Assets/Images/background.png"/>
             </Canvas.Background>
-            <Canvas x:Name="gameFieldCanvas" Background="#8C808080" Width="680" Height="380" Canvas.Left="206" Canvas.Top="40" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Canvas x:Name="gameFieldCanvas" Width="644" Height="380" Canvas.Left="206" Canvas.Top="40" HorizontalAlignment="Left" VerticalAlignment="Center">
 
             </Canvas>
             <StackPanel x:Name="plantChoosePanel" Width="100" Height="380" Background="Wheat" Panel.ZIndex="99" Canvas.Left="10" Canvas.Top="40" HorizontalAlignment="Center" VerticalAlignment="Top">
