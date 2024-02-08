@@ -6,14 +6,19 @@
         xmlns:local="clr-namespace:Game.Windows"
         xmlns:objects="clr-namespace:Game.ObjectsBase"
         mc:Ignorable="d"
-        Title="GameWindow" Height="450" Width="800">
+        Title="GameWindow" Height="450" Width="800" Closed="Window_Closed">
     <Viewbox>
-        <DockPanel>
-            <StackPanel x:Name="plantChoosePanel">
-                <TextBlock x:Name="livesTextBlock" Text="Жизни: 3"/>
-                <TextBlock x:Name="sunTextBlock" Text="Солнышки: 100"/>
+        <Canvas x:Name="gameCanvas" Width="850" Height="460">
+            <Canvas.Background>
+                <ImageBrush ImageSource="/Assets/Images/background.png"/>
+            </Canvas.Background>
+            <Canvas x:Name="gameFieldCanvas" Width="644" Height="380" Canvas.Left="206" Canvas.Top="40" HorizontalAlignment="Left" VerticalAlignment="Center">
+
+            </Canvas>
+            <StackPanel x:Name="plantChoosePanel" Width="100" Height="380" Background="Wheat" Panel.ZIndex="99" Canvas.Left="10" Canvas.Top="40" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <TextBlock x:Name="livesTextBlock" Text="Жизни: 3"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <TextBlock x:Name="sunTextBlock" Text="Солнышки: 100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </StackPanel>
-            <Canvas x:Name="gameCanvas" Background="DarkOliveGreen" Width="800" Height="450"/>
-        </DockPanel>
+        </Canvas>
     </Viewbox>
 </Window>

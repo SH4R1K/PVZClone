@@ -33,6 +33,8 @@ namespace Game.ObjectsBase
         {
             InitializeComponent();
             DataContext = Plant;
+            plantImage.Width = Body.Width;
+            plantImage.Height = Body.Height;
         }
 
         public void PlacePlant(PlantBase newPlant)
